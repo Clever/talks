@@ -1,0 +1,156 @@
+A Year of Docker at Clever
+15 Oct 2014
+Tags: docker, clever
+
+Rafael Garcia
+Co-founder & CTO, Clever
+rafael.garcia@clever.com
+
+* Clever
+
+* Growth
+
+- A year ago: 10,000 schools, 6 engineers, 0 containers/day
+- Today: close to 30,000 schools, 18 engineers, 8,000 containers/day
+
+* The state of confusion about Docker is strong
+
+* A year ago on Hacker News
+
+.link https://news.ycombinator.com/item?id=6634974 Dotcloud Becoming Docker
+"Can someone please explain what is Docker exactly? I've read this page, http://www.docker.com/about_docker/docker/, and didn't understand."
+
+* A month ago on Hacker News
+
+.link https://news.ycombinator.com/item?id=8324138 Docker closes $40M Series C led by Sequoia
+"How do people actually use Docker? In my world of bootstrapped, smaller apps looking for market traction, even if things go well, a few Linodes should be enough to handle most of the traffic I'll ever need to deal with, so this kind of thing is kind of foreign to me. I'm curious how people utilize it in practice."
+
+* Docker in production
+
+.image what-does-it-mean.jpg
+
+* Configuration management
+
+* 
+.image sit-down-we-need-to-talk.jpg _ 450
+
+# So, we need to talk about config management.
+# At Clever we've had an interesting journey with config management
+
+* In the beginning
+
+1. Spin up some servers
+2. `ssh`
+3. `git` `clone`
+4. Build and run code
+
+Pro: Simple and easy to explain to the person sitting next to you.
+Con: Breaks beyond a few people.
+
+* Config management!
+1. Describe the software you want your server to run via code/configuration.
+We use [[http://www.saltstack.com/][Salt]]:
+
+    haproxy:
+      pkg:
+        - installed
+
+2. Launch servers. We use [[http://www.fabfile.org/][Fabric]] to script this:
+
+     fab apps.create:2,haproxy
+
+* 
+Pros:
+
+- Predictable deploys
+- Possible to install software on many machines
+- Configuration lives in version control
+
+Cons:
+
+- Configuration gets complicated quickly
+- In order to launch a new service, *everyone* needs to know {Salt,Puppet,Chef,Ansible}
+- Hard to scale to a large number of services
+
+* Docker
+1. Package your code as a Docker image once
+2. Run anywhere
+
+* 
+
+.image java.jpg
+
+
+* Building Docker images
+
+- Automate, automate, automate
+- No one should be building Docker images manually
+- We do it in CI: for every repo/service, build the Dockerfile and push image to a central registry
+
+* Building Docker images cont.
+- We use [[http://github.com/drone/drone][Drone]] for CI, a [[https://github.com/drone/drone/pull/361][Docker publish plugin]] that we wrote, and [[https://hub.docker.com/][Docker Hub]]:
+
+    # .drone.yml
+    image: go1.3
+    script:
+      - make test
+    publish:
+      docker:
+        branch: master
+        docker_file: Dockerfile
+        image_name: clever/aeries
+
+* Result
+
+.image aeries.png
+
+* Running Docker images
+
+1. `docker` `login`
+2. `docker` `run` `clever/aeries:latest`
+
+Pros:
+
+- Instead of managing servers and config management, engineers produce Dockerfiles
+- All servers are just Docker hosts
+
+Cons/rough edges:
+
+- Caching of Docker images: [[https://github.com/docker/docker/issues/3313][#3313]]
+- `docker` `run` signal handling and running under a process monitor: [[https://github.com/docker/docker/issues/1311][#1311]]
+- Docker host disk space hacks: [[https://github.com/docker/docker/issues/3823#issuecomment-56107494][#3823]]
+
+* Running Docker images: future
+
+- Number of tools trying to make it even easier to run Docker images in a cluster: Kubernetes, Deis, Flynn, Dokku, etc.
+- We've experimented/contributed to a number of these but have yet to find them production-ready
+
+* Beyond deployment
+
+* On-demand infrastructure
+
+* Problem: massive data changes during back to school
+
+- We receive full snapshots of data for all schools we work with on an hourly basis
+- Need to process each of these snapshots and make updates to our systems
+- Errors in this process lead to corrupt data
+- Corrupt data typically means students/teachers can't log in to apps :(
+
+* Solution: on-demand sandbox databases for every snapshot
+
+- Receive a snapshot of a district's data
+- Spawn a temporary database container (mongodb)
+- Copy over existing data for the district
+- Run all work against this database, not production
+- If results look good, replay them back onto production
+
+* Result
+
+- Insulated production data from bugs in both the data we received and also our logic for processing it
+- Allows us to experiment and take more risks in making changes to this code
+- Spawning throwaway mongo instances incurs zero ongoing infrastructure maintenance costs
+
+* In summary
+
+- Package up apps as Docker images in your CI environment, run them anywhere
+- On-demand/per-request containers
