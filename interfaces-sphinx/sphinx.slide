@@ -67,9 +67,10 @@ https://github.com/Clever
 
 
 * Easier testing
-- Write tests once, against an interface, re-use for all implementations
+- Write tests against your interface
+- Each implementations of that interface can use the same tests
 - Keeps implementations more reliable
-# LeakyBucket interface and how all implementations are tested through it.
+- Find a bug in one, can write a test for it and know that all implementations are bug-free
 
 
 * Example: Redis vs in-memory implementations for LeakyBucket
@@ -90,6 +91,8 @@ Tests for the redis implementation:
 
 
 * Swappable behaviors
+- Sometimes you want different behavior in different situations
+- Interfaces allow you to do that transparently
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
 
