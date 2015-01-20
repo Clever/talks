@@ -26,8 +26,19 @@ https://github.com/Clever
 .image logo.png _ 250
 
 
-* [Mohit] A request in Sphinx-land
+* Short Story: One Request in Sphinx Land
 
+* Defining a Rate Limit
+.code request-in-sphinx/config.yml
+
+* Incoming Request
+.code request-in-sphinx/request.md
+
+* Calculating Rate Limit
+.code request-in-sphinx/buckets.md
+
+* Response to User
+.code request-in-sphinx/response.md
 
 * ♥ Interface ♥
 - Improved collaboration
