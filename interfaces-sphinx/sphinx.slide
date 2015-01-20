@@ -40,7 +40,7 @@ https://github.com/Clever
 * Response to User
 .code request-in-sphinx/response.md
 
-* ♥ Interface ♥
+* Benefits of ♥ interfaces ♥
 - Improved collaboration
 - Easier testing
 - Swappable behaviors
@@ -49,8 +49,9 @@ https://github.com/Clever
 
 
 * Improved collaboration
-- Define a scaffold and then compoents can be built independently
-- Test driven development for every component
+- "Who works on what" is a hard problem when dealing with dependencies between components
+- With defined interfaces, you can use mock implementations
+- Better for both testing and collaboration
 
 
 * Example: Collaborating using interfaces
