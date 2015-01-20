@@ -71,7 +71,21 @@ https://github.com/Clever
 # LeakyBucket interface and how all implementations are tested through it.
 
 
-* [Mohit] Example: Redis vs in-memory implementations for LeakyBucket
+* Example: Redis vs in-memory implementations for LeakyBucket
+.code interface_tests/leakybucket.go /START OMIT/,/END OMIT/
+
+
+* Example: Redis vs in-memory implementations for LeakyBucket
+.code interface_tests/leakybucket_test.go /START OMIT/,/END OMIT/
+
+
+* Example: Redis vs in-memory implementations for LeakyBucket
+Tests for the memory implementation:
+
+.code interface_tests/memory_tests.go /START OMIT/,/END OMIT/
+Tests for the redis implementation:
+
+.code interface_tests/redis_tests.go /START OMIT/,/END OMIT/
 
 
 * Swappable behaviors
