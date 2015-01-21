@@ -26,10 +26,23 @@ https://github.com/Clever
 .image logo.png _ 250
 
 
-* Short Story: One Request in Sphinx Land
+* Short Story: A Request in Sphinx Land
 
 * Defining a Rate Limit
-.code request-in-sphinx/config.yml
+
+- Number of allowed requests over a specified interval
+- Rules to test if a limit should be applied to an incoming request
+- Rules for genenerating a dynamic key based on information in an incoming request
+
+*Limits:*
+
+- limit-special-things: 
+    - path is `/special/*` 
+    - 200 requests every 15 seconds
+- other-limit: 
+    - contains Header `X-Other-Limit`
+    - 10 requests every 10 seconds
+
 
 * Incoming Request
 .code request-in-sphinx/request.md
