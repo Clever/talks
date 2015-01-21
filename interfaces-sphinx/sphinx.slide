@@ -3,7 +3,6 @@ Case Study: Sphinx Rate Limiter
 
 21 Jan 2015
 
-
 Mohit Gupta & Alex Zylman
 @mohitgupta
 @amzylman
@@ -13,7 +12,7 @@ https://clever.com
 https://github.com/Clever
 
 
-* But what is Sphinx?
+* What is Sphinx?
 - HTTP rate limiter
 - Based on leakybucket algorithm (supporting both Redis and in-memory stores)
 - Supports matching on request headers and IP address
@@ -21,25 +20,37 @@ https://github.com/Clever
 - Low request latencies (~15 ms)
 .image logo.png _ 250
 
+* A Request in Sphinx Land
 
-* Short Story: A Request in Sphinx Land
+* A Request in Sphinx Land
 
-* Defining a Rate Limit
+Defining a Limit:
 
-- Number of allowed requests over a specified interval
-- Rules to test if a limit should be applied to an incoming request
-- Rules for genenerating a dynamic key based on information in an incoming request
+- Maximum allowed requests over an interval
+- IP, Path or Header based matching for applying a limit
+- IP or Header based limits. eg. apply limit per ip, or apply limit per user
 
-* Example
+* A Request in Sphinx Land
 
-    name: limit-special-things:
-    path matches `/special/*`
-    allow 200 requests every 15 seconds
-    limit on IP address
+Enforcing a Limit:
 
-.code request-in-sphinx/buckets.md
+- Match incoming request to limit
+- Create key based on request metadata
+- Increment counter and check if it is below the limit
+- Proxy if below limit
+- Add Headers and respond
 
-* Benefits of ♥ interfaces ♥
+* ♥ interfaces ♥
+
+* ♥ interfaces in go ♥
+
+- Interfaces are _sets_ _of_ _methods_
+- Any struct with the _set_ _of_ _methods_ _implements_ the interface
+
+.code interface_examples/limit-interface.go /START OMIT/,/END OMIT/
+.code interface_examples/iplimitkey.go /START OMIT/,/END OMIT/
+
+* ♥ interfaces ♥
 - Improved collaboration
 - Easier testing
 - Swappable behaviors
