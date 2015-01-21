@@ -1,21 +1,18 @@
-IP:             172.0.0.2
-Path:           /special/resources/1
-Authorization:  ABCD=
-Host:           example.com
+IP: 172.0.0.2, path: /special/resources/1
 
-REQUEST MATCHES LIMITS:
+matches limit-special-things: true
 
-   limit-special-things: true 
-   other-limit:          false
+key: limit-special-things | 172.0.0.2
 
-BUCKET NAME FOR REQUEST:
+increment current request count, make sure it's not >200
 
-    limit-special-things | authorization ABCD= | 172.0.0.2
+    Name:   limit-special-things | 172.0.0.2
+    Count:  11
+    Expire: in 5 secs
 
-INCREMENT CURRENT COUNT IN BUCKET
+response:
 
-    Name:   limit-special-things | authorization ABCD= | 172.0.0.2 
-    Count:  10 + 1
-    Expire: 1421785247  # (in 5 secs from now)
-
-LIMIT REQUEST: false
+    X-RateLimit-Bucket:     limit-special-things
+    X-RateLimit-Limit:      200
+    X-RateLimit-Remaining:  189
+    X-RateLimit-Reset:      1421785247

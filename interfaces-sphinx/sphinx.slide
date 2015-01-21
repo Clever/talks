@@ -13,10 +13,6 @@ https://clever.com
 https://github.com/Clever
 
 
-* Introductions
-# short introductions: name and position + 2 line summary of Clever
-
-
 * But what is Sphinx?
 - HTTP rate limiter
 - Based on leakybucket algorithm (supporting both Redis and in-memory stores)
@@ -34,24 +30,14 @@ https://github.com/Clever
 - Rules to test if a limit should be applied to an incoming request
 - Rules for genenerating a dynamic key based on information in an incoming request
 
-*Limits:*
+* Example
 
-- limit-special-things: 
-    - path is `/special/*` 
-    - 200 requests every 15 seconds
-- other-limit: 
-    - contains Header `X-Other-Limit`
-    - 10 requests every 10 seconds
+    name: limit-special-things:
+    path matches `/special/*`
+    allow 200 requests every 15 seconds
+    limit on IP address
 
-
-* Incoming Request
-.code request-in-sphinx/request.md
-
-* Calculating Rate Limit
 .code request-in-sphinx/buckets.md
-
-* Response to User
-.code request-in-sphinx/response.md
 
 * Benefits of ♥ interfaces ♥
 - Improved collaboration
@@ -109,7 +95,7 @@ Tests for the redis implementation:
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
 
-* [Mohit] Plugins
+# * [Mohit] Plugins
 # MatcherFactory
 
 
@@ -118,4 +104,4 @@ Tests for the redis implementation:
 
 
 # If time:
-* [Alex?] Benchmarking
+# * [Alex?] Benchmarking
