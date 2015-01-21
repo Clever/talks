@@ -44,54 +44,63 @@ https://github.com/Clever
 - Easier testing
 - Swappable behaviors
 - Plugins/components
-- Bonus: 10 lines for live config reloads
 
 
-* Improved collaboration
+* Collaboration through Interfaces
+
+* Collaboration through Interfaces
+
 - "Who works on what" is a hard problem when dealing with dependencies between components
 - With defined interfaces, you can use mock implementations
 - Better for both testing and collaboration
 
 
-* Example: Collaborating using interfaces
+* Collaboration through Interfaces: Example
 .code rate_limiter_examples/rate_limiter.go /START OMIT/,/END OMIT/
 
 
-* Example: Collaborating using interfaces
+* Collaboration through Interfaces: Example
 .code rate_limiter_examples/rate_limiter_mock.go /START OMIT/,/END OMIT/
 
 
-* Example: Collaborating using interfaces
+* Collaboration through Interfaces: Example
 .code rate_limiter_examples/rate_limiter_test.go /START OMIT/,/END OMIT/
 
 
-* Easier testing
+* Easier Testing
+
+* Easier Testing
+
 - Write tests against your interface
 - Each implementations of that interface can use the same tests
 - Keeps implementations more reliable
 - Find a bug in one, can write a test for it and know that all implementations are bug-free
 
 
-* Example: Redis vs in-memory implementations for LeakyBucket
+* Easier Testing: Example
 .code interface_tests/leakybucket.go /START OMIT/,/END OMIT/
 
 
-* Example: Redis vs in-memory implementations for LeakyBucket
+* Easier Testing: Example
 .code interface_tests/leakybucket_test.go /START OMIT/,/END OMIT/
 
 
-* Example: Redis vs in-memory implementations for LeakyBucket
+* Easier Testing: Example
 Tests for the memory implementation:
 
 .code interface_tests/memory_tests.go /START OMIT/,/END OMIT/
+
 Tests for the redis implementation:
 
 .code interface_tests/redis_tests.go /START OMIT/,/END OMIT/
 
+* Swappable Behaviors
 
-* Swappable behaviors
+* Swappable Behaviors
+
 - Sometimes you want different behavior in different situations
 - Interfaces allow you to do that transparently
+
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
 
