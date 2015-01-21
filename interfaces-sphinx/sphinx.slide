@@ -112,6 +112,10 @@ Tests for the redis implementation:
 - Allow for different behaviors easily
 - There is more confidence since different behaviors share common tests
 
+  type Handler interface {
+    ServeHTTP(ResponseWriter, *Request)
+  }
+
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
 
