@@ -50,9 +50,9 @@ https://github.com/Clever
 
 * Collaboration through Interfaces
 
-- "Who works on what" is a hard problem when dealing with dependencies between components
+- "Who works on what" is a hard problem
 - With defined interfaces, you can use mock implementations
-- Better for both testing and collaboration
+- More flexibility on deciding what to work on
 
 
 * Collaboration through Interfaces: Example
@@ -71,10 +71,10 @@ https://github.com/Clever
 
 * Easier Testing
 
-- Write tests against your interface
-- Each implementations of that interface can use the same tests
+- Write tests against the interface
+- Each implementation can reuse the tests
 - Keeps implementations more reliable
-- Find a bug in one, can write a test for it and know that all implementations are bug-free
+- Adding a test case for the interface will ensure implementations are bug-free
 
 
 * Easier Testing: Example
@@ -98,8 +98,8 @@ Tests for the redis implementation:
 
 * Swappable Behaviors
 
-- Sometimes you want different behavior in different situations
-- Interfaces allow you to do that transparently
+- Allow for different behaviors easily
+- There is more confidence since different behaviors share common tests
 
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
