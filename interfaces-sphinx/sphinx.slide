@@ -122,6 +122,17 @@ Tests for the redis implementation:
 
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
+* Plugins / Components
+
+- Easily add Matchers and Keys without diving into the whole system
+- Each component responsible for it's own configuration
+
+* Plugins / Components: Example
+
+.code plugins/matcher.go
+.code plugins/path_matcher.go
+
+
 * Bonus
 
 * Bonus: Adding dynamic configuration reload
