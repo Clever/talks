@@ -18,3 +18,4 @@ type daemon struct {
  	d.proxy = newConfig.Proxy
  	target, _ := url.Parse(d.proxy.Host) // already tested for invalid Host
  	proxy := httputil.NewSingleHostReverseProxy(target)
+    ...

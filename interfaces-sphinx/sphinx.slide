@@ -54,19 +54,21 @@ Enforcing a Limit:
 - Improved collaboration
 - Easier testing
 - Swappable behaviors
-- Plugins/components
-
+- Bonus
 
 * Collaboration through Interfaces
 
 * Collaboration through Interfaces
 
 - "Who works on what" is a hard problem
-- With defined interfaces, you can use mock implementations
+- Start working on different parts simultaneously
 - More flexibility on deciding what to work on
 
 
 * Collaboration through Interfaces: Example
+
+- With defined interfaces, you can use mock implementations
+
 .code rate_limiter_examples/rate_limiter.go /START OMIT/,/END OMIT/
 
 
@@ -82,13 +84,15 @@ Enforcing a Limit:
 
 * Easier Testing
 
-- Write tests against the interface
-- Each implementation can reuse the tests
-- Keeps implementations more reliable
-- Adding a test case for the interface will ensure implementations are bug-free
+- Keep different implementations in sync
+- Ensure that bugs found in an implementation are easily applied to all
 
 
 * Easier Testing: Example
+
+- Write tests against the interface so each implementation can reuse them
+- A test case for a bug will ensure all implementations are bug-free
+
 .code interface_tests/leakybucket.go /START OMIT/,/END OMIT/
 
 
@@ -118,10 +122,7 @@ Tests for the redis implementation:
 
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
-
-# * [Mohit] Plugins
-# MatcherFactory
-
+* Bonus
 
 * Bonus: Adding dynamic configuration reload
 .code livereload_diff/diff
