@@ -20,25 +20,13 @@ https://github.com/Clever
 - Low request latencies (~15 ms)
 .image logo.png _ 250
 
-* A request in Sphinx
+* Limiting requests
 
-* A request in Sphinx
+Sphinx allows you to set any number of limits, where a limit defines:
 
-Defining a Limit:
-
-- Maximum allowed requests over an interval
-- IP, Path or Header based matching for applying a limit
-- IP or Header based limits. eg. apply limit per ip, or apply limit per user
-
-* A request in Sphinx
-
-Enforcing a Limit:
-
-- Match incoming request to limit
-- Create key based on request metadata
-- Increment counter and check if it is below the limit
-- Proxy if below limit
-- Add headers and respond
+- _How_ _many_ requests to allow in an interval
+- _Which_ requests this limit applies to (e.g. only a specific path, IP, or header)
+- _What_ part of the request you're ratelimiting by (e.g. IP, user)
 
 * ♥ interfaces ♥
 
@@ -59,9 +47,12 @@ Enforcing a Limit:
 
 * Collaboration through interfaces
 
-- "Who works on what" is a hard problem
-- Start working on different parts simultaneously
-- More flexibility on deciding what to work on
+- "Who works on what" and "where do you start" is a hard problem
+*Desire*:
+
+- Working on different parts simultaneously
+- Flexibility in deciding what to work on
+- Not be blocked by your teammates
 
 
 * Collaboration through interfaces: Example
@@ -83,8 +74,10 @@ Enforcing a Limit:
 
 * Easier testing
 
-- Keep different implementations in sync
-- Ensure that bugs found in an implementation are easily applied to all
+- Have different implementations of the same interface
+*Desire*:
+- Different implementations stay in sync
+- Bugs fixed in one implementation are fixed in all
 
 
 * Easier testing: Example
@@ -112,8 +105,9 @@ Tests for the redis implementation:
 
 * Swappable behaviors
 
-- Allow for different behaviors easily
-- There is more confidence since different behaviors share common tests
+Desire:
+
+- Change behavior with just config
 
   type Handler interface {
     ServeHTTP(ResponseWriter, *Request)
@@ -122,6 +116,9 @@ Tests for the redis implementation:
 .code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
 
 * Plugins / components
+
+- Support matching and limiting on different parts of the request
+Desire:
 
 - Easily add Matchers and Keys without diving into the whole system
 - Each component responsible for it's own configuration

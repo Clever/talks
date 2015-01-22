@@ -9,6 +9,8 @@ type Storage interface {
 	Create(name string, capacity uint, rate time.Duration) (Bucket, error)
 }
 
+// END OMIT
+
 type Bucket interface {
 	Capacity() uint
 	Remaining() uint
@@ -23,5 +25,3 @@ type BucketState struct {
 	Remaining uint
 	Reset     time.Time
 }
-
-// END OMIT
