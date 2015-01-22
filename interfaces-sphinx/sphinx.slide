@@ -38,7 +38,7 @@ Enforcing a Limit:
 - Create key based on request metadata
 - Increment counter and check if it is below the limit
 - Proxy if below limit
-- Add Headers and respond
+- Add headers and respond
 
 * ♥ interfaces ♥
 
