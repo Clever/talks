@@ -10,3 +10,4 @@ https://github.com/Clever
 The source for all of these talks is available at [[https://github.com/Clever/talks][Clever/talks]].
 
 - [[http://go-talks.appspot.com/github.com/Clever/talks/a-year-of-docker/docker.slide][A Year of Docker at Clever]] - Docker meetup, 10/15/2014
+- [[http://go-talks.appspot.com/github.com/Clever/talks/interfaces-sphinx/sphinx.slide][Interfaces in Go: Case Study of an HTTP Rate Limiter]] - Docker meetup, 10/15/2014
