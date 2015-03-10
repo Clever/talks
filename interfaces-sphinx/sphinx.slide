@@ -1,0 +1,139 @@
+Interfaces Will Save the Future
+Case Study: Sphinx Rate Limiter
+
+21 Jan 2015
+
+Mohit Gupta & Alex Zylman
+@mohitgupta
+@amzylman
+
+Clever
+https://clever.com
+https://github.com/Clever
+
+
+* What is Sphinx?
+- HTTP rate limiter
+- Based on leakybucket algorithm (supporting both Redis and in-memory stores)
+- Supports matching on request headers and IP address
+- Transparent limiting through X-Rate-Limit headers
+- Low request latencies (~15 ms)
+.image logo.png _ 250
+
+* Limiting requests
+
+Sphinx allows you to set any number of limits, where a limit defines:
+
+- _How_ _many_ requests to allow in an interval
+- _Which_ requests this limit applies to (e.g. only a specific path, IP, or header)
+- _What_ part of the request you're ratelimiting by (e.g. IP, user)
+
+* ♥ interfaces ♥
+
+* ♥ interfaces in Go ♥
+
+- Interfaces are _sets_ _of_ _methods_
+- Any struct with the _set_ _of_ _methods_ _implements_ the interface
+
+.code interface_examples/limit-interface.go /START OMIT/,/END OMIT/
+.code interface_examples/iplimitkey.go /START OMIT/,/END OMIT/
+
+* ♥ interfaces in Go♥
+- Improved collaboration
+- Easier testing
+- Swappable behaviors
+
+* Collaboration through interfaces
+
+* Collaboration through interfaces
+
+- "Who works on what" and "where do you start" is a hard problem
+*Desire*:
+
+- Working on different parts simultaneously
+- Flexibility in deciding what to work on
+- Not be blocked by your teammates
+
+
+* Collaboration through interfaces: Example
+
+- With defined interfaces, you can use mock implementations
+
+.code rate_limiter_examples/rate_limiter.go /START OMIT/,/END OMIT/
+
+
+* Collaboration through interfaces: Example
+.code rate_limiter_examples/rate_limiter_mock.go /START OMIT/,/END OMIT/
+
+
+* Collaboration through interfaces: Example
+.code rate_limiter_examples/rate_limiter_test.go /START OMIT/,/END OMIT/
+
+
+* Easier testing
+
+* Easier testing
+
+- Have different implementations of the same interface
+*Desire*:
+- Different implementations stay in sync
+- Bugs fixed in one implementation are fixed in all
+
+
+* Easier testing: Example
+
+- Write tests against the interface so each implementation can reuse them
+- A test case for a bug will ensure all implementations are bug-free
+
+.code interface_tests/leakybucket.go /START OMIT/,/END OMIT/
+
+
+* Easier testing: Example
+.code interface_tests/leakybucket_test.go /START OMIT/,/END OMIT/
+
+
+* Easier testing: Example
+Tests for the memory implementation:
+
+.code interface_tests/memory_tests.go /START OMIT/,/END OMIT/
+
+Tests for the redis implementation:
+
+.code interface_tests/redis_tests.go /START OMIT/,/END OMIT/
+
+* Swappable behaviors
+
+* Swappable behaviors
+
+Desire:
+
+- Change behavior with just config
+
+  type Handler interface {
+    ServeHTTP(ResponseWriter, *Request)
+  }
+
+.code http_limiter_examples/constructors.go /START OMIT/,/END OMIT/
+
+* Plugins / components
+
+- Support matching and limiting on different parts of the request
+Desire:
+
+- Easily add Matchers and Keys without diving into the whole system
+- Each component responsible for it's own configuration
+
+* Plugins / components: Example
+
+.code plugins/matcher.go
+.code plugins/path_matcher.go
+
+
+* Bonus
+
+* Bonus: Adding dynamic configuration reload
+.code livereload_diff/diff
+
+
+# If time:
+# * [Alex?] Benchmarking
